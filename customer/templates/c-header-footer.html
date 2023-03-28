@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% load static %}
+<!-- Mirrored from demo.hasthemes.com/petmark-v5/petmark/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Dec 2020 16:23:56 GMT -->
+<head>
+  <!-- Menu script -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+    $(function()
+  
+      $( "#search").autocomplete({
+        Source: "{% url 'search1'%}"
+      });
+  
+    });
+  
+  </script>
+
+<script>
+		function load(){
+
+     			$.ajax({
+      				  url:"/client/client_header_menu/",
+        				  success: function(data)
+       				 {
+        				    $("#menu3").html(data);
+           				  $("#menu11").html(data);
+       				 }
+   			 });
+         $.ajax({
+      				  url:"/client/cart_menu/",
+        				  success: function(date)
+       				 {
+        				    $("#carto").html(date);
+       				 }
+   			 });
+
+		}
+
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.0/parsley.min.js"></script>
+	
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+   <link rel="stylesheet" href="{% static 'parsley/parsley.css' %}">
+  <link rel="stylesheet" href="{% static 'css/plugins.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/main-logo--blue2.png' %}">
+	<title>Dog spot</title>
+</head>
+
+<body class=" petmark-theme-4"  onload="load()">
+		<div class="site-wrapper">
+	<header class="header petmark-header-4">
+		<div class="header-wrapper">
+			<!-- Site Wrapper Starts -->
+			<div class="header-top bg-ash">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-sm-6 text-center text-sm-left">
+							<p class="font-weight-300">Welcome to Acacia Pet Food</p>
+						</div>
+						<div class="col-sm-6">
+							<div class="header-top-nav right-nav">
+								<div class="nav-item slide-down-wrapper">
+									<span>Language:</span><a class="slide-down--btn" href="#" role="button">
+										English<i class="ion-ios-arrow-down"></i>
+									</a>
+									<ul class="dropdown-list slide-down--item">
+										<li><a href="#">En</a></li>
+										<li><a href="#">En</a></li>
+									</ul>
+								</div>
+								<div class="nav-item slide-down-wrapper">
+									<span>Currency:</span><a class="slide-down--btn" href="#" role="button">
+										IND<i class="ion-ios-arrow-down"></i>
+									</a>
+									<ul class="dropdown-list slide-down--item">
+										<li><a href="#">RUPEE </a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-middle">
+				<div class="container">
+					<div class="row align-items-center justify-content-center">
+						<!-- Template Logo -->
+						<div class="col-lg-3 col-md-12 col-sm-4">
+							<div class="site-brand  text-center text-lg-left">
+								<a href="index.html" class="brand-image">
+									<img src="{% static 'image/main-logo--blue2.png' %}" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- Category With Search -->
+						<div class="col-lg-5 col-md-6 order-3 order-md-2">
+							<form class="category-widget" action="/client/sidebar_shop/" method="POST">
+                 {% csrf_token %}
+								<input type="search"  id="search" name="products_name" placeholder="Search products ">
+								
+								<button class="search-submit"><i class="fas fa-search"></i></button>
+							</form>
+						</div>
+						<!-- Call Login & Track of Order -->
+						<div class="col-lg-4 col-md-6 col-sm-8 order-2 order-md-3">
+							<div class="header-widget-2 text-center text-md-right ">
+								
+                <div class="call-widget">
+									
+								</div>
+                {% if 'customer_id' in request.session %}
+								<ul class="header-links">
+									<li><a href="/client/clogout/"><i class="fas fa-user"></i> Log out</a></li>
+									<li><a href="/client/account/"><i class="fas fa-user"></i> My Account</a></li>
+								</ul>
+                {% else %}
+                <ul class="header-links">
+                  <li><a href="/client/register/"><i class="fas fa-user"></i> Register</a></li>
+									<li><a href="/client/login/"><i class="fas fa-user"></i>  Login </a></li>
+								</ul>
+                {% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header-nav-wrapper" style="padding: 30px;">
+			<div class="container">
+				<div class="header-bottom-inner bg-blue-2 ">
+					<div class="row no-gutters">
+						<!-- Category Nav -->
+						<!-- Main Menu -->
+						<div class="col-lg-10 d-none d-lg-block">
+							<nav class="main-navigation white-color">
+								<!-- Mainmenu Start -->
+								<ul class="mainmenu">
+  <li class="mainmenu__item  ">
+    <a href="/client/home/" class="mainmenu__link">Home</a>
+  </li>
+  
+
+<li class="mainmenu__item menu-item-has-children ">
+  <a href="/client/sidebar_shop/" class="mainmenu__link">Shop</a>
+  <ul class="megamenu three-column" id="menu3" name="menu3">
+   
+
+
+  </ul>
+
+</li>
+
+<li class="mainmenu__item ">
+  <a href="/client/docters/" class="mainmenu__link">Docter Details</a>
+</li>
+{% if 'customer_id' in request.session %}
+<li class="mainmenu__item ">
+  <a href="/client/order/" class="mainmenu__link">Your Orders</a>
+</li>
+<li class="mainmenu__item ">
+  <a href="/client/wishlist/" class="mainmenu__link">Wish list</a>
+</li>
+{% endif %}
+
+</ul>
+								<!-- Mainmenu End -->
+							</nav>
+						</div>
+						<!-- Cart block-->
+						  <div class="col-lg-2 col-7 offset-5 offset-lg-0 offset-md-9 col-md-3 order-3">
+							<div class="cart-widget-wrapper slide-down-wrapper">
+								<div class="cart-widget text-white slide-down--btn">
+									<div class="cart-icon">
+										<i class="ion-bag"></i>
+										
+									</div>
+									<div class="cart-text text-white">
+										<span class="d-block">Your Cart</span>
+										<span class="d-block"></span>
+									</div>
+								</div>
+								<div class="slide-down--item " >
+                  <div class="cart-widget-box" id="carto" >
+                    <ul class="cart-items" >
+                        <li class="single-cart">
+                            <a href="#" class="cart-product">
+                                <div class="cart-product-img">
+                                    <img src="image/product/cart-product.jpg" alt="Selected Products">
+                                </div>
+                                <div class="product-details">
+                                    <h4 class="product-details--title"> Ras Neque Metus</h4>
+                                    <span class="product-details--price">1 x $120.00</span> 
+                                </div>
+                                <span class="cart-cross">x</span>
+                            </a>
+                        </li>
+                        <li class="single-cart">
+                            <div class="cart-product__subtotal">
+                                <span class="subtotal--title">Subtotal</span>
+                                <span class="subtotal--price">$200</span>
+                            </div>
+                        </li>
+                        <li class="single-cart">
+                            <div class="cart-buttons">
+                                <a href="cart.html" class="btn btn-outlined">View Cart</a>
+                                <a href="checkout.html" class="btn btn-outlined">Check Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                
+                </div>
+
+                
+                
+								</div>
+							</div>
+						</div>
+						<!-- Mobile Menu -->
+						<div class="col-12 d-flex d-lg-none order-2 mobile-absolute-menu">
+							<!-- Main Mobile Menu Start -->
+							<div class="mobile-menu"></div>
+							<!-- Main Mobile Menu End -->
+						</div>
+					</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+
+				</div>
+			</div>
+
+
+
+      <div class="fixed-header sticky-init sticky-color">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3">
+                    <!-- Sticky Logo Start -->
+                    <a class="sticky-logo" href="index.html">
+                        <img src="{% static 'image/main-logo--blue2.png' %}" alt="logo">
+                    </a>
+                    <!-- Sticky Logo End -->
+                </div>
+                <div class="col-lg-9">
+                    <!-- Sticky Mainmenu Start -->
+                    <nav class="sticky-navigation">
+                        <ul class="mainmenu sticky-menu">
+      <li class="mainmenu__item  ">
+        <a href="index.html" class="mainmenu__link">Home</a>
+        
+      </li>
+      
+    
+    
+    <li class="mainmenu__item menu-item-has-children sticky-has-child ">
+      <a href="shop.html" class="mainmenu__link">Shop</a>
+      <ul class="megamenu three-column" id="menu11" name="menu11" >
+        <!-- {% for o in c %}
+    <li>  
+      <a href="shop.html">{{o.categorys_name}}</a>
+      <ul>
+        {% for j in su %}
+
+        {% if j.categorys_id.categorys_id == o.categorys_id %}
+        <li>
+          <a href="shop-left-sidebar.html">{{j.sub_categorys_name}}</a>
+        </li>
+        {% endif %}
+
+         {% endfor %}
+      </ul>
+    </li>
+    {% endfor %} -->
+
+      </ul>
+    
+    </li>
+    <li class="mainmenu__item ">
+      <a href="/client/docters/" class="mainmenu__link">Dcoter Details</a>
+    </li>
+    </ul>
+                        <div class="sticky-mobile-menu  d-lg-none">
+                            <span class="sticky-menu-btn"></span>
+                        </div>
+                    </nav>
+                    <!-- Sticky Mainmenu End -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+			
+	</header>
+
+		
+        
+      {% block conten%}
+
+
+
+
+
+
+
+
+      
+      {% endblock %}
+
+      <div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog" aria-labelledby="quickModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="pm-product-details">
+        <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+          <!-- Blog Details Image Block -->
+          <div class="col-md-6">
+            <div class="image-block">
+              <!-- Zoomable IMage -->
+              <img id="zoom_03" src="{% static 'image/product/product-details/product-details-1.jpg' %}"
+              data-zoom-image="image/product/product-details/product-details-1.jpg" alt=""/>
+              
+              <!-- Product Gallery with Slick Slider -->
+              <div id="product-view-gallery" class="elevate-gallery">
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="image/product/product-details/product-details-1.jpg"
+                  data-zoom-image="image/product/product-details/product-details-1.jpg">
+                  <img src="{% static 'image/product/product-details/product-details-1.jpg' %]" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="image/product/product-details/product-details-2.jpg"
+                  data-zoom-image="image/product/product-details/product-details-2.jpg">
+                  <img src="{% static 'image/product/product-details/product-details-2.jpg' %}" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="image/product/product-details/product-details-3.jpg"
+                  data-zoom-image="image/product/product-details/product-details-3.jpg">
+                  <img src="{% static 'image/product/product-details/product-details-3.jpg' %]" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="image/product/product-details/product-details-4.jpg"
+                  data-zoom-image="image/product/product-details/product-details-4.jpg">
+                  <img src="{% static 'image/product/product-details/product-details-4.jpg' %}" alt=""/>
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mt-4 mt-lg-0">
+            <div class="description-block">
+              <div class="header-block">
+                <h3>Diam vel neque</h3>
+              </div>
+              <!-- Price -->
+              <p class="price"><span class="old-price">250$</span>300$</p>
+              <!-- Rating Block -->
+              <div class="rating-block d-flex  mt--10 mb--15">  
+                <p class="rating-text"><a href="#comment-form">See all features</a></p>
+              </div>
+              <!-- Blog Short Description -->
+              <div class="product-short-para">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
+                  tristique auctor. Donec non est at libero vulputate rutrum.
+                </p>
+              </div>
+              <div class="status">
+                <i class="fas fa-check-circle"></i>300 IN STOCK
+              </div>
+              <!-- Amount and Add to cart -->
+              <form action="https://demo.hasthemes.com/petmark-v5/petmark/" class="add-to-cart">
+                <div class="count-input-block">
+                  <input type="number" class="form-control text-center" value="1">
+                </div>
+                <div class="btn-block">
+                  <a href="#" class="btn btn-rounded btn-outlined--primary">Add to cart</a>
+                </div>
+              </form>
+              <!-- Sharing Block 2 -->
+              <div class="share-block-2 mt--30">
+                <h4>SHARE THIS PRODUCT</h4>
+                <ul class="social-btns social-btns-3">
+                  <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
+                  <li><a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+                  <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-footer contact-block">
+                        <h3 class="footer-title">Contact</h3>
+                        <div class="single-footer-content">
+                            <p class="text-italic">We are a team of designers and developers that create high quality Wordpress, Magento, Prestashop, Opencart.</p>
+                            <p class="font-weight-500 text-white"><span class="d-block">Contact info:</span>
+                            169-C, Technohub, Dubai Silicon Oasis.</p>
+                            <p class="social-icons">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-rss"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="single-footer contact-block">
+                        <h3 class="footer-title">Information</h3>
+                        <div class="single-footer-content">
+                        <ul class="footer-list">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">My orders</a></li>
+                            <li><a href="#">Returns & Exchanges</a></li>
+                            <li><a href="#">Shipping & Delivery</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="single-footer contact-block">
+                        <h3 class="footer-title">CUSTOMER CARE</h3>
+                        <div class="single-footer-content">
+                        <ul class="footer-list">
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Returns</a></li>
+                            <li><a href="#">Order History</a></li>
+                            <li><a href="#">Site Map</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Notification</a></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="footer-copyright">
+            <p>Copyright © 2018 <a href="#">Petmark.com</a>. All Rights Reserved</p>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/ajax-mail.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+
+
+
+</body>
+
+
+<!-- Mirrored from demo.hasthemes.com/petmark-v5/petmark/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 19 Dec 2020 16:25:13 GMT -->
+</html>

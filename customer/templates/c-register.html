@@ -1,0 +1,94 @@
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+    <!--=============================================
+    =            Login Register page content         =
+    =============================================-->
+
+    <main class="page-section pb--10 pt--50">
+		<div class="container">
+			<header class="entry-header">
+			
+			</header>
+			<div class="row">
+				
+				<div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 mb-30">
+					
+					<!-- Login Form s-->
+					<form name="froms" method="POST" action="/client/register/" data-parsley-validate="" >
+            {% csrf_token %}
+						<h4 class="login-title">Register</h4>
+						<div class="login-form">
+							<div class="row">
+								<div class="col-md-12 col-12 mb--20">
+									<label>First Name</label>
+									<input class="mb-0" name="first_name" type="text" data-parsley-required="true" data-parsley-required-message="This field is required">
+								</div>
+								<div class="col-md-12 col-12 mb--20">
+									<label>Last Name</label>
+									<input class="mb-0" name="last_name" type="text" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+								<div class="col-md-12 col-12 mb--20">
+									<label> Email address *</label>
+									<input class="mb-0" name="users_email" type="email" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+								<div class="col-12 mb--20">
+									<label>Password</label>
+									<input class="mb-0" name="users_password" type="password" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+								<div class="col-12 mb--20">
+									<label>mobile number</label>
+									<input class="mb-0" name="mobile_no" type="text" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+								<div class="col-12 mb--20">
+									<label>Birth of Date</label>
+									<input class="mb-0" name="birth_of_date" type="date" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+								<div class="col-md-12 col-12 mb--20">
+									<label>Local Address:</label>
+									<input class="mb-0" name="users_address" type="text" data-parsley-required="true" data-parsley-required-message="This field is required" >
+								</div>
+
+								<div class="form-group">
+									<label> Select Category</label>
+									<select name="areas_id" class="form-control selectric" data-parsley-required="true" data-parsley-required-message="This field is required">
+									  
+									  {% for j in arre %}
+										
+									  <option value="{{j.areas_id}}" >{{j.areas_name}}</option>
+										 
+									  {% endfor %}
+									  
+									</select>
+								  </div>
+								
+								<div class="col-md-12">
+									<div class="d-flex align-items-center flex-wrap">
+										<input type="submit"value="Login" style="background: black;"  
+                    class="btn btn-black   mr-3"></input>
+
+					
+  
+										<div  class="d-inline-flex align-items-center">
+											<!-- <a href="#" style="margin-top: 10%;
+											align-content: center;" class="btn btn-black">Register</a> -->
+											
+										</div>
+									</div>
+									
+									
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!--=====  End of Login Register page content  ======-->
+  
+  {% endblock %}
+   

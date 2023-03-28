@@ -1,0 +1,63 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+        </ol>
+    </div>
+</nav>
+
+        <!-- Cart Page Start -->
+        <div class="cart_area sp-inner-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="https://demo.hasthemes.com/petmark-v5/petmark/">				
+                            <!-- Cart Table -->
+                            <div class="cart-table table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Image</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            <th class="pro-quantity">Quantity</th>
+                                            <th class="pro-subtotal">Total</th>
+                                            <th class="pro-remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for i in wish %}
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img src="{%  static '/image/'%}{{i.products_id.products_image}}" alt="Product"></a></td>
+                                            <td class="pro-title"><a href="#">{{ i.products_id.products_name }}</a></td>
+                                            <td class="pro-price"><span>{{i.products_id.products_price}}</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <div class="count-input-block">
+                                                        <input type="number" class="form-control text-center" value="1">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>{{i.added_date}}</span></td>
+                                            <td class="pro-remove"><a href="/client/wishlist_delete/{{i.wishlists_id}}/"><i class="far fa-trash-alt"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </form>	
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Page End --> 
+
+  
+        {% endblock %}  

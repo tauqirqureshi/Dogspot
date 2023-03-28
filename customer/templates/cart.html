@@ -1,0 +1,438 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% load cart_tag %}
+{% block conten %}
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+	<div class="container">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Cart</li>
+			</ol>
+	</div>
+</nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		
+		<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+
+
+
+<script>
+function up(max) {
+	var qty = parseInt(document.getElementById("myNumber").value) + 1;
+    document.getElementById("myNumber").value = qty;
+    if (document.getElementById("myNumber").value >= parseInt(max)) {
+        document.getElementById("myNumber").value = max;
+    }
+		getQty(qty);
+}
+function down(min) {
+	var qty = parseInt(document.getElementById("myNumber").value) - 1;
+    document.getElementById("myNumber").value = qty;
+    if (document.getElementById("myNumber").value <= parseInt(min)) {
+        document.getElementById("myNumber").value = min;
+    }
+	getQty(qty);
+}
+
+function getQty(val)
+{
+	alert(val);
+	var q = $("#qty-"+val).val();
+	alert(q);
+		$.ajax({
+	        type:'GET',
+			url:'/client/update_cart/'+val,
+            data:{id:val,qty:q},
+			success: function(data){
+
+                    location.reload();
+			}
+	});
+
+}
+
+</script>
+<style>
+
+.product {
+	width: 30%;
+	margin: 30px;
+}
+.form-group {
+	width: 30%;
+	margin: 30px;
+}
+.glyphicon {
+		color: blue;
+	}
+
+button
+{
+	height:34px;
+}
+
+</style>
+
+
+
+		<!-- Cart Page Start -->
+		<div class="cart_area cart-area-padding sp-inner-page--top">
+			<div class="container">
+				<div class="page-section-title">
+					<h1>SHOPPING CART</h1>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<form action="#" class="">
+							<!-- Cart Table -->
+							<div class="cart-table table-responsive mb--40">
+								<table class="table">
+									<!-- Head Row -->
+									<thead>
+										<tr>
+											<th class="pro-remove"></th>
+											<th class="pro-thumbnail">Image</th>
+											<th class="pro-title">Product</th>
+											<!-- <th class="pro-price">Price</th> -->
+											<th class="pro-price">Price</th>
+											<th class="pro-quantity">Quantity</th>
+											<th class="pro-subtotal">Total</th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<!-- Product Row -->
+                                        {% if 'customer_id' in request.session %}
+
+                                         {% for h in cartd %}
+										<tr>
+											{{sum}}
+											<td class="pro-remove"><a href="/client/delete_cart/{{h.products_id.products_id}}/"><i class="far fa-trash-alt"></i></a></td>
+											<td class="pro-thumbnail"><a href="#"><img src="{%  static '/image/'%}{{h.products_id.products_image}}" alt="Product"></a></td>
+											<td class="pro-title"><a href="#">{{h.products_id.products_name}}</a></td>
+											<!-- <td class="pro-price"><span>{{value.id}}</span	></td> -->
+												<td class="pro-price"><span>{{h.amount}}</span	></td>
+											<td>
+												<div class="form-group">       
+													<div class="input-group">
+														<div class="input-group-btn">
+															<button id="down" class="btn btn-default" onclick=" down('0')"><span class="glyphicon glyphicon-minus" style="width: 80px;"></span></button>
+														</div>
+														<input type="text" id="qty-{{h.cart_id}}" class="form-control input-number" value="{{h.qty}}"  style="width: 100px;" onChange="getQty({{h.cart_id}})" />
+														<div class="input-group-btn">
+															<button id="up" class="btn btn-default" onclick="up('10')"><span class="glyphicon glyphicon-plus"  style="width: 80px;"></span></button>
+														</div>
+													</div>
+												</div>
+											</td>
+
+											<td class="pro-subtotal"><span>{{h.amount|multiply:h.qty}}</span></td>
+										</tr>
+										{% endfor %}
+										<tr>
+											<td colspan="6" class="actions">
+<!-- 
+												<div class="coupon-block">
+													<div class="coupon-text">
+														<label for="coupon_code">Coupon:</label>
+														<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
+													</div>
+													<div class="coupon-btn">
+														<a href="/client/clear_cart/"  ><input type="submit" class="btn-black" name="update_cart" value="Clear Cart"></a>
+													</div>
+												</div> -->
+
+												<div class="update-block text-right">
+													<a href="/client/clear_cart/"  ><input type="submit" class="btn-black" name="update_cart" value="Clear Cart"></a>
+													<input type="hidden" id="_wpnonce" name="_wpnonce" value="05741b501f"><input type="hidden" name="_wp_http_referer"
+													value="/petmark/cart/">
+												</div>
+											</td>
+										</tr>
+
+                                        {% else %}
+
+										   {% for key,value in request.session.cart.items %}
+										   
+										<tr>
+											<td class="pro-remove"><a href="/client/delete_cart/{{value.id}}/"><i class="far fa-trash-alt"></i></a></td>
+											<td class="pro-thumbnail"><a href="#"><img src="{%  static '/image/'%}{{value.image}}" alt="Product"></a></td>
+											<td class="pro-title"><a href="#">{{value.name}}</a></td>
+											<!-- <td class="pro-price"><span>{{value.id}}</span	></td> -->
+												<td class="pro-price"><span>{{value.price}}</span	></td>
+											<td class="pro-quantity">
+												<div class="form-group">       
+													<div class="input-group">
+														<div class="input-group-btn">
+															<button id="down" class="btn btn-default" onclick=" down('0')"><span class="glyphicon glyphicon-minus" style="width: 80px;"></span></button>
+														</div>
+														<input type="text" id="qty-{{value.id}}" class="form-control input-number" style="width: 100px;" value="{{value.quantity}}" onChange="getQty({{value.id}})" />
+														<div class="input-group-btn">
+															<button id="up" class="btn btn-default" onclick="up('10')"><span class="glyphicon glyphicon-plus" style="width: 80px;"></span></button>
+														</div>
+													</div>
+												</div>
+
+											</td>
+
+											<td class="pro-subtotal"><span>{{value.price|multiply:value.quantity}}</span></td>
+										</tr>
+										
+										    {% endfor %}
+										<!-- Discount Row  -->
+										<tr>
+											<td colspan="6" class="actions">
+
+												<!-- <div class="coupon-block">
+													<div class="coupon-text">
+														<label for="coupon_code">Coupon:</label>
+														<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
+													</div>
+													<div class="coupon-btn">
+														<a href="/client/clear_cart/" class="btn-black" >Clear Cart</a>
+													</div>
+												</div> -->
+
+												<div class="update-block text-right">
+													<a href="/client/clear_cart/" class="btn-black" >Clear Cart</a>
+													<input type="hidden" id="_wpnonce" name="_wpnonce" value="05741b501f"><input type="hidden" name="_wp_http_referer"
+													value="/petmark/cart/">
+												</div>
+											</td>
+										</tr>
+										{% endif %}
+									</tbody>
+								</table>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart-section-2 sp-inner-page--bottom">
+			<div class="container">
+				<div class="row">
+					<!-- <div class="col-lg-6 col-12 mb--15">
+						
+						<div class="cart-block-title">
+							<h2>YOU MAY BE INTERESTED IN…</h2>
+						</div>
+						<div class="petmark-slick-slider border normal-slider arrow-type-two" data-slick-setting='{
+								"autoplay": true,
+								"autoplaySpeed": 3000,
+								"slidesToShow": 3,
+								"arrows": true
+						}'
+						data-slick-responsive='[
+								{"breakpoint":991, "settings": {"slidesToShow": 2} },
+								{"breakpoint":768, "settings": {"slidesToShow": 1} }
+						]'>
+
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-7.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-8.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-9.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-5.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-1.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-3.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-2.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="single-slide">
+								<div class="pm-product">
+									<div class="image">
+										<a href="product-details.html"><img src="{% static 'image/product/home-1/product-1.jpg' %}" alt=""></a>
+
+										<span class="onsale-badge">Sale!</span>
+									</div>
+									<div class="content">
+										<h3>Convallis quam sit</h3>
+										<div class="price text-red">
+											<span class="old">$200</span>
+											<span>$300</span>
+										</div>
+										<div class="btn-block">
+											<a href="cart.html" class="btn btn-outlined btn-rounded">Add to Cart</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div> -->
+
+					<!-- Cart Summary -->
+					<div class="col-lg-12 col-12 d-flex">
+						<div class="cart-summary">
+							<div class="cart-summary-wrap">
+								<h4><span>Cart Summary</span></h4>
+								<p>Sub Total <span class="text-primary">${{total}}</span></p>
+								<p>Shipping Cost <span class="text-primary">$00.00</span></p>
+								<h2>Grand Total <span class="text-primary">${{total}}</span></h2>
+							</div>
+							{% if 'customer_id' in request.session %}
+							<div class="cart-summary-button">
+								<a href="/client/checkout/" class="checkout-btn c-btn">Checkout</a>
+								
+							</div>
+							{% else %}
+							<div class="cart-summary-button">
+								<a href="/client/login/" class="checkout-btn c-btn">Checkout</a>
+								
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Cart Page End -->
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+		<!-- Latest compiled and minified CSS -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+		
+		<!-- jQuery library -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+		
+		<!-- Latest compiled JavaScript -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+		
+		
+  
+		{% endblock %}

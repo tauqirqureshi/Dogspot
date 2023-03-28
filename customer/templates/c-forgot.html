@@ -1,0 +1,53 @@
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+    <!--=============================================
+    =            Forgot page content         =
+    =============================================-->
+
+    <main class="page-section pb--10 pt--50">
+		<div class="container">
+			<header class="entry-header">
+				
+			</header>
+			<div class="row">
+				
+				<div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 mb-30">
+					
+					<!-- Login Form s-->
+					<form method="POST" action="/client/send-otp/" >
+            {% csrf_token %}
+						<h4 class="login-title"> Forgot </h4>
+						<div class="login-form">
+							<div class="row">
+								<div class="col-md-12 col-12 mb--20">
+									<label>Username or email address *</label>
+									<input class="mb-0" name="email" type="email" >
+								</div>
+								
+								<div class="col-md-12">
+									<div class="d-flex align-items-center flex-wrap">
+										<input type="submit"value="Login" style="background: black;"  
+                    class="btn btn-black   mr-3"></input>
+
+					
+  
+										
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</main>
+
+	<!--=====  End of Login Register page content  ======-->
+  
+  {% endblock %}
+   

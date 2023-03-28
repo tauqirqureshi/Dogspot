@@ -1,0 +1,75 @@
+{% load cart_tag %}
+{% load static %}
+
+{% if 'customer_id' in request.session %}
+
+<div class="cart-widget-box">
+    <ul class="cart-items">
+        {% for mes in ca %}
+        <li class="single-cart">
+            <a href="#" class="cart-product">
+                <div class="cart-product-img">
+                    <img src="{%  static '/image/'%}{{mes.products_id.products_image}}" alt="Selected Products">
+                </div>
+                <div class="product-details">
+                    <h4 class="product-details--title"> {{mes.products_id.products_name}}</h4>
+                    <span class="product-details--price">{{mes.qty}} x ${{mes.amount}}</span> 
+                </div>
+                <span class="cart-cross">x</span>
+            </a>
+        </li>
+        {% endfor %}
+        <li class="single-cart">
+            <div class="cart-product__subtotal">
+                <span class="subtotal--title">Subtotal</span>
+                <span class="subtotal--price">{{total}}</span>
+            </div>
+        </li>
+        <li class="single-cart">
+            <div class="cart-buttons">
+                <a href="/client/cart/" class="btn btn-outlined">View Cart</a>
+                <a href="/client/checkout/" class="btn btn-outlined">Check Out</a>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+{% else %}
+
+
+<div class="cart-widget-box">
+    <ul class="cart-items">
+        {% for key,value in request.session.cart.items %}
+        <li class="single-cart">
+            <a href="#" class="cart-product">
+                <div class="cart-product-img">
+                    <img src="{%  static '/image/'%}{{value.image}}" alt="Selected Products">
+                </div>
+                <div class="product-details">
+                    <h4 class="product-details--title"> {{value.name}}</h4>
+                    <span class="product-details--price">{{value.quantity}} x ${{value.price}}</span> 
+                </div>
+                <span class="cart-cross">x</span>
+            </a>
+        </li>
+        {% endfor %}
+
+        <li class="single-cart">
+            <div class="cart-product__subtotal">
+                <span class="subtotal--title">Subtotal</span>
+                <span class="subtotal--price">{{total}}</span>
+            </div>
+        </li>
+        <li class="single-cart">
+            <div class="cart-buttons">
+                <a href="/client/cart/" class="btn btn-outlined">View Cart</a>
+                
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+
+{% endif %}

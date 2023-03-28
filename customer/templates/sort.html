@@ -1,0 +1,56 @@
+{% load static %}
+{% for i in ga %}   
+    <div class="col-lg-4 col-sm-6">
+      <form method="POST" action="/client/insert_cart/{{i.products_id}}/">
+        {% csrf_token %}
+    <div class="pm-product  ">
+      <a href="/client/product-details/{{i.products_id}}/" class="image"  >
+        <img src="{%  static '/image/'%}{{i.products_image}}" alt="">
+      </a>
+      <div class="hover-conents">
+        <ul class="product-btns">
+          <li><a href="/client/add_wishlist/{{i.products_id}}/"  ><i class="ion-ios-heart-outline"></i></a></li>
+          
+        </ul>
+      </div>
+      <div class="content">
+        <h3 class="font-weight-500"><a href="/client/product-details/{{i.products_id}}/">{{ i.products_name }}</a></h3>
+        <div class="price text-red">
+          <!-- <span class="old">$200</span> -->
+          <span>{{i.products_price}}</span>
+        </div>
+            <input type="hidden" value="1" name="quantity">
+            <input type="hidden" value="{{i.products_id}}" name="products_id">
+            <input type="hidden" value="{{i.products_name}}" name="products_name">
+            <input type="hidden" value="{{i.products_price}}" name="amt">
+        <div class="btn-block grid-btn">
+          <button  class="btn btn-outlined btn-rounded btn-mid"  >Add to Cart</button>
+        </div>
+        <div class="card-list-content ">
+          <div class="rating-widget mt--20">
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="far fa-star"></i></a>
+          </div>
+          <article>
+            <h2 class="sr-only d-none">Shop Post Articles</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Nam fringilla augue nec est tristique
+              auctor.</p>
+          </article>
+          <div class="btn-block d-flex">
+            <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid"  >Add to Cart</a>
+            <div class="btn-options">
+              <a href="wishlist.html"><i class="ion-ios-heart-outline"></i>Add to Wishlist</a>
+              <a href="compare.html"><i class="ion-ios-shuffle"></i>Add to Compare</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+    
+  </div>
+  {% endfor %}

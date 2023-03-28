@@ -1,0 +1,315 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+<script>
+  $(document).ready(function(){
+      $("#orderby").change(function(){
+          var val=$(this).val();
+          $.ajax({
+              url:'/client/sort_porduct/',
+              data:{'sort':val},
+              success: function(data){
+                  $("#product").html(data);
+              }
+          });
+      });
+  });
+</script>
+
+<script>
+  function pricefilter()
+  {
+    var val=$('#amount').val();
+    // alert(val);
+    var amt=val.split("-");
+    // alert(amt[0]);
+    var ss=amt[0].split(".");
+    // alert(ss[1]);
+    var ee=amt[1].split(".");
+    // alert(ee[1]);
+    $.ajax({
+          url:'/client/filter_price/',
+          data:{'start':ss[1],"end":ee[1]},
+          success: function(data){
+              $("#product").html(data);
+          }
+      });
+  }
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade modal-quick-view" id="quickModal" tabindex="-1" role="dialog" aria-labelledby="quickModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="pm-product-details">
+        <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+          <!-- Blog Details Image Block -->
+          <div class="col-md-6">
+            <div class="image-block">
+              <!-- Zoomable IMage -->
+              <img id="zoom_03" src="{% static 'image/product/product-details/product-details-1.jpg'%}"
+              data-zoom-image="{% static 'image/product/product-details/product-details-1.jpg' %}" alt=""/>
+              
+              <!-- Product Gallery with Slick Slider -->
+              <div id="product-view-gallery" class="elevate-gallery">
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="{% static 'image/product/product-details/product-details-1.jpg' %]"
+                  data-zoom-image="{% static 'image/product/product-details/product-details-1.jpg' %}">
+                  <img src="{% static 'image/product/product-details/product-details-1.jpg' %}" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="{% static 'image/product/product-details/product-details-2.jpg' %}"
+                  data-zoom-image="{% static 'image/product/product-details/product-details-2.jpg' %}">
+                  <img src="{% static 'image/product/product-details/product-details-2.jpg' %]" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="{% static 'image/product/product-details/product-details-3.jpg' %}"
+                  data-zoom-image="{% static 'image/product/product-details/product-details-3.jpg' %}">
+                  <img src="{% static 'image/product/product-details/product-details-3.jpg' %}" alt=""/>
+                </a>
+                <!-- Slick Single -->
+                <a href="#" class="gallary-item" data-image="{% static 'image/product/product-details/product-details-4.jpg' %}"
+                  data-zoom-image="{% static 'image/product/product-details/product-details-4.jpg' %}">
+                  <img src="{% static 'image/product/product-details/product-details-4.jpg' %}" alt=""/>
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mt-4 mt-lg-0">
+            <div class="description-block">
+              <div class="header-block">
+                <h3>Diam vel neque</h3>
+              </div>
+              <!-- Price -->
+              <p class="price"><span class="old-price">250$</span>300$</p>
+              <!-- Rating Block -->
+              <div class="rating-block d-flex  mt--10 mb--15">  
+                <p class="rating-text"><a href="#comment-form">See all features</a></p>
+              </div>
+              <!-- Blog Short Description -->
+              <div class="product-short-para">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est
+                  tristique auctor. Donec non est at libero vulputate rutrum.
+                </p>
+              </div>
+              <div class="status">
+                <i class="fas fa-check-circle"></i>300 IN STOCK
+              </div>
+              <!-- Amount and Add to cart -->
+              <form action="https://demo.hasthemes.com/petmark-v5/petmark/" class="add-to-cart">
+                <div class="count-input-block">
+                  <input type="number" class="form-control text-center" value="1">
+                </div>
+                <div class="btn-block">
+                  <a href="#" class="btn btn-rounded btn-outlined--primary">Add to cart</a>
+                </div>
+              </form>
+              <!-- Sharing Block 2 -->
+              <div class="share-block-2 mt--30">
+                <h4>SHARE THIS PRODUCT</h4>
+                <ul class="social-btns social-btns-3">
+                  <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
+                  <li><a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+                  <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Shop</li>
+    </ol>
+  </div>
+</nav>
+
+<main class="section-padding shop-page-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-xl-9 order-lg-2 mb--40">
+        <div class="shop-toolbar mb--30">
+  <div class="row align-items-center">
+    <div class="col-5 col-md-3 col-xl-4">
+      <!-- Product View Mode -->
+      <
+    </div>
+    <div class="col-12 col-md-9 col-xl-8 mt-3 mt-md-0  pr-md-0">
+      <div class="sorting-selection">
+        <div class="row align-items-center pl-md-0 pr-md-0 no-gutters">
+          <div class="col-sm-6 col-md-7 col-xl-8 d-flex align-items-center justify-content-md-end">
+
+            <span>Sort By:</span>
+            <select id="orderby" class="form-control nice-select sort-select" style="display: none;">
+              <option value="0" selected="selected" >Default Sorting</option>
+              <option value="1">Sort
+                By:Name (A - Z)</option>
+              <option value="2">Sort
+                By:Name (Z - A)</option>
+              <option value="3">Sort
+                By:Price (Low &gt; High)</option>
+              <option value="4">Sort
+                By:Price (High &gt; Low)</option>
+              <!-- <option value="">Sort
+                By:Rating (Highest)</option> -->
+              <!-- <option value="">Sort
+                By:Rating (Lowest)</option> -->
+              <!-- <option value="">Sort
+                By:Model (A - Z)</option> -->
+              <!-- <option value="">Sort
+                By:Model (Z - A)</option> -->
+            </select>
+          </div>
+          <!-- <div class="col-md-5 col-xl-4 col-sm-6 text-sm-right mt-sm-0 mt-3">
+            <span>
+              Showing 1–20 of 52 results
+            </span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="shop-product-wrap grid with-pagination row border grid-four-column  mr-0 ml-0 no-gutters" id="product">
+  {% for i in ga %}  
+
+    <div class="col-lg-4 col-sm-6">
+    <form method="POST" action="/client/insert_cart/{{i.products_id}}/">
+      {% csrf_token %}
+    <div class="pm-product  ">
+      <a href="/client/product-details/{{i.products_id}}/" class="image"  >
+        <img src="{%  static '/image/'%}{{i.products_image}}" alt="">
+      </a>
+      <div class="hover-conents">
+        <ul class="product-btns">
+          <li><a href="/client/add_wishlist/{{i.products_id}}/"  ><i class="ion-ios-heart-outline"></i></a></li>
+          
+
+        </ul>
+      </div>
+      <div class="content">
+        <h3 class="font-weight-500"><a href="/client/product-details/{{i.products_id}}/">{{ i.products_name }}</a></h3>
+        <div class="price text-red">
+          <!-- <span class="old">$200</span> -->
+          <span>{{i.products_price}}</span>
+        </div>
+        <div class="btn-block grid-btn">
+          <button  class="btn btn-outlined btn-rounded btn-mid"  >Add to Cart</button>
+        </div>
+        <div class="card-list-content ">
+           <input type="hidden" value="1" name="quantity">
+            <input type="hidden" value="{{i.products_id}}" name="products_id">
+            <input type="hidden" value="{{i.products_name}}" name="products_name">
+            <input type="hidden" value="{{i.products_price}}" name="amt">
+          <div class="rating-widget mt--20">
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+            <a href="#" class="single-rating"><i class="far fa-star"></i></a>
+          </div>
+          <article>
+            <h2 class="sr-only d-none">Shop Post Articles</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Nam fringilla augue nec est tristique
+              auctor.</p>
+          </article>
+          <div class="btn-block d-flex">
+            <a href="cart.html" class="btn btn-outlined btn-rounded btn-mid"  >Add to Cart</a>
+            <div class="btn-options">
+              <a href="wishlist.html"><i class="ion-ios-heart-outline"></i>Add to Wishlist</a>
+              <a href="compare.html"><i class="ion-ios-shuffle"></i>Add to Compare</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  </div>
+  {% endfor %}
+  
+  
+   
+
+</div>
+        <div class="mt--30">
+          <div class="pagination-widget">
+    <div class="site-pagination">
+        <a href="#" class="single-pagination">|&lt;</a>
+        <a href="#" class="single-pagination">&lt;</a>
+        <a href="#" class="single-pagination active">1</a>
+        <a href="#" class="single-pagination">2</a>
+        <a href="#" class="single-pagination">&gt;</a>
+        <a href="#" class="single-pagination">&gt;|</a>
+    </div>
+</div>
+   
+        </div>
+    </div>
+    <div class="col-lg-4 col-xl-3 order-lg-1">
+        <div class="sidebar-widget">
+            <div class="single-sidebar">
+                <h2 class="sidebar-title">PRODUCT CATEGORIES</h2>
+                {% for cate in c %}
+                
+                <ul class="filter-list">
+                  <a href="/client/select_category/{{cate.categorys_id}}/" > <h7 style="color: #128ced;" >{{cate.categorys_name}}</h7> </a>
+                   {% for j in su %}
+
+                      {% if j.categorys_id.categorys_id == cate.categorys_id %}
+                    <li><a href="/client/select_sub_category/{{j.sub_categorys_id}}/" style="margin: 6px;">-{{j.sub_categorys_name}}</a></li>
+                       {% endif %}
+                       
+                    {% endfor %}  
+                </ul>
+
+                {% endfor %}
+
+                
+            </div>
+            
+
+
+            <div class="single-sidebar">
+                <h2 class="sidebar-title">FILTER BY PRICE</h2>
+                <div class="range-slider pt--10">
+                    <div class="pm-range-slider"></div>
+                    <div class="slider-price">
+                        <p>
+                            <input type="text" id="amount" readonly>
+                            <button href="#" class="btn btn--primary" onclick="pricefilter()">Filter</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        
+            
+        </div>
+    </div>
+  </div>
+  </div>
+</main>
+  
+{% endblock %}
+
+
+

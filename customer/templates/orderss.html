@@ -1,0 +1,72 @@
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% load cart_tag %}
+{% block conten %}
+
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Your Order</li>
+        </ol>
+    </div>
+</nav>
+
+        <!-- Cart Page Start -->
+        <div class="cart_area sp-inner-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="">				
+                            <!-- Cart Table -->
+                            <div class="cart-table table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">ORDERS ID</th>
+                                            <th class="pro-price">ORDER Amount</th>
+                                            <th class="pro-title">ORDER DATE</th>
+                                            <th class="pro-price">ORDER status</th>
+                                            
+                                            <th class="pro-subtotal">Payments status</th>
+                                            <th class="pro-remove">views </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for i in ord %}
+                                        <tr>
+                                            <td class="pro-thumbnail">{{ i.orders_id}}</td>
+                                            <td class="pro-thumbnail">{{ i.total_amount}}</td>
+                                            <td class="pro-title"><a href="#">{{ i.orders_date}}</a></td>
+
+                                            {% if i.orders_status == 0 %}
+                                            <td class="pro-price"><span>pending..</span></td>
+                                            {% elif i.orders_status == 1 %}
+                                            <td class="pro-price"><span>Accept</span></td>
+                                            {% elif i.orders_status == 2 %}
+                                            <td class="pro-price"><span>Reject</span></td>
+                                            {% endif %}
+                                            
+                                            {% if i.payments_status == 1 %}
+                                            <td class="pro-subtotal"><span> Payment Done </span></td>
+                                            {% elif i.payments_status == 0%}
+                                            <td class="pro-subtotal"><span> cash </span></td>
+                                            {% endif %}
+                                            
+                                            
+                                            <td class="pro-remove"><a href="/client/order_details/{{i.orders_id}}/"><i > Views Details </i></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </form>	
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

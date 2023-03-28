@@ -1,0 +1,115 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+
+
+		<section class="blog-page-section with-sidebar">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-xl-9  left-slide-margin">
+						
+  <div class="blog-posts-container">
+    <!-- Blog Image Post -->
+    {% for i in d%}
+    <div class="blog-post blog-style-list">
+      <div class="row">
+        
+        <div class="col-lg-5 col-md-6">
+          <a href="blog-details.html" class="blog-image">
+            <img src="{% static '/image/'%}{{i.docters_image}}" alt="">
+          </a>
+        </div>
+        <div class="col-lg-7 col-md-6">
+          <div class="blog-content mt--15 mt-md-0">
+           
+              <!-- <div class="post-category text-primary">
+                <i class="fas fa-folder"></i>
+                <a href="#">Wordpress</a>,
+                <a href="#">Fasion</a>
+              </div> -->
+              <h3 class="blog-title"> <a href="blog-details.html">DR.{{i.docters_name}}</a></h3>
+              <!-- <div class="post-meta">
+                <span class="post-author">
+                  <i class="fas fa-user"></i>
+                  <span class="text-gray">Posted by : </span>
+                  admin
+                </span>
+                <span class="post-separator">|</span>
+                <span class="post-date">
+                  <i class="far fa-calendar-alt"></i>
+                  <span class="text-gray">On : </span>
+                  March 10, 2015
+                </span>
+              </div> -->
+            
+            <table  border="1"   style="block-size: 50px; ">
+              <tr style="padding: 7px;">
+              <td > <h4> Docter number : </h4></td>
+              <td> <h4>  {{i.docters_no}} </h4> </td>
+            </tr>
+           
+              <tr>
+              <td> <h4> Hospital Name : </h4></td>
+              <td> <h4>  {{i.hospital_name}} </h4> </td>
+            </tr>
+            
+              <tr>
+              <td> <h4> Hospital Number : </h4></td>
+              <td> <h4>  {{i.hospital_no}} </h4> </td>
+            </tr>
+            
+              <tr>
+              <td> <h4> Hospital Address : </h4></td>
+              <td> <h6>  {{i.hospital_address}} </h6> </td>
+            </tr>
+            </table>
+            
+            <footer class="blog-post-footer">
+              <!-- <div class="blog-btn">
+                <a href="blog-details.html" class="btn btn-rounded btn-outlined--primary">Read More</a>
+              </div>
+              <div class="social-links">
+                <a href="#" class="single-social social-rounded"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="single-social social-rounded"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="single-social social-rounded"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="single-social social-rounded"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="single-social social-rounded"><i class="fab fa-linkedin-in"></i></a>
+              </div> -->
+            </footer>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    {% endfor %}
+    <!-- Blog Audio Post -->
+    
+    <!-- Blog Video Post -->
+    
+    <!-- Blog Gallery Post -->
+    
+  </div>
+
+						<div class="pagination-widget">
+    <div class="site-pagination">
+        <a href="#" class="single-pagination">|&lt;</a>
+        <a href="#" class="single-pagination">&lt;</a>
+        <a href="#" class="single-pagination active">1</a>
+        <a href="#" class="single-pagination">2</a>
+        <a href="#" class="single-pagination">&gt;</a>
+        <a href="#" class="single-pagination">&gt;|</a>
+    </div>
+</div>
+   
+						</div>
+						
+				</div>
+			</div>
+		</section>
+
+  
+  
+    {% endblock %}
+   

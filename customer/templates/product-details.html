@@ -1,0 +1,291 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/client/home/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+        </ol>
+    </div>
+  </nav>
+<!-- Product Details Block -->
+<main class="product-details-section">
+  <div class="container">
+    <div class="pm-product-details">
+      <div class="row">
+        <!-- Blog Details Image Block -->  
+        <div class="col-md-6">
+          <div class="image-block">
+            <!-- Zoomable IMage -->
+            {%for k in p %}
+            <div class="zoomWrapper" style="height:400px;width:400px;" >
+            
+            <img id="zoom_03" style="height:400px;width:400px;" src="{%  static '/image/'%}{{k.products_image}}" data-zoom-image="{%  static '/image/'%}{{k.products_image}}"  alt=""/>
+            
+          </div>
+          {% endfor %}
+            <!-- Product Gallery with Slick Slider -->
+            <div id="product-view-gallery" class="elevate-gallery" style="width: 45%;">
+              <!-- Slick Single -->
+              {% for i in g %}
+              <a href="#" class="gallary-item" data-image="{%  static '/image/'%}{{i.images}}"
+                data-zoom-image="{%  static '/image/'%}{{i.images}}">
+                <img src="{%  static '/image/'%}{{i.images}}" alt=""/>
+              </a>
+              {% endfor %}
+              
+             
+
+            </div>
+          </div>  
+        </div>
+        {% for j in p %}
+
+        <div class="col-md-6 mt-5 mt-md-0">
+          <form action="/client/insert_cart/{{j.products_id}}/" method="POST">
+          {% csrf_token %}
+          
+            <div class="description-block">
+            <div class="header-block">
+                <h3>{{j.products_name}}</h3>
+                
+            </div>
+            <!-- Rating Block -->
+           {% for x in sqlrate %}
+            <div class="rating-block d-flex  mt--10 mb--15">
+              <div class="rating-widget">
+                 {% if j.products_id == x.feedbacks_id  %}
+
+                 {%if x.AVG == 1.000 %}
+                <a href="#" class="single-rating"><i class="fas fa-star"></i></a>
+                {%elif x.AVG == 2.000 %}
+                <a href="#" class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i></a>
+                {%elif x.AVG == 3.000 %}
+                <a href="#" class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></a>
+                {%elif x.AVG == 4.000 %}
+                <a href="#" class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></a>
+                {%elif x.AVG == 5.000 %}
+                <a href="#" class="single-rating"><i class="far fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></a>
+                {% endif %}
+                
+                
+                {% endif %}
+              </div>
+              <!-- <p class="rating-text"><a href="#comment-form">(1 customer review)</a></p> -->
+            </div>
+            {% endfor %}
+            <!-- Price -->
+            <p class="price">Rs.{{j.products_price}}</p>
+            <!-- Blog Short Description -->
+            
+            <div class="product-meta mt--30">
+              <p>{{j.products_description}}></p>
+              
+            </div>
+            <div class="status">
+              <i class="fas fa-check-circle"></i>in stock- {{j.products_quantity}}
+            </div>
+            <div class="count-input-block">
+              <input type="number"  name="quantity" class="form-control text-center" value="1">
+            </div>
+            
+            <input type="hidden" value="{{j.products_id}}" name="products_id">
+            <input type="hidden" value="{{j.products_name}}" name="products_name">
+            <input type="hidden" value="{{j.products_price}}" name="amt">
+            
+            
+            <div class="btn-block">
+              <button  value="Add cart" type="submit" class="btn btn-rounded btn-outlined--primary"> Add cart </button>
+            </div>
+          </form>
+   {% endfor %}
+
+            <!-- Amount and Add to cart -->
+            
+              <form name="A" action="/client/int_wishlist/" method="POST" >
+                {% csrf_token %}
+            <!-- Wishlist And Compare -->
+            <div class="btn-options">
+              {% for o in p %}
+              <input type="hidden" value="{{o.products_id}}" name="products_id">
+              <button type="submit" class="ion-ios-heart-outline">Add to Wishlist</button>
+
+              {% endfor %}
+            </div>
+          </form>
+            <!-- Products Tag & Category Meta -->
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="review-section pt--60">
+    <h2 class="sr-only d-none">Product Review</h2>
+    <div class="container">
+        
+<div class="product-details-tab">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">DESCRIPTION</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">REVIEWS</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <article>
+        <h2 class="d-none sr-only">tab article</h2>
+          <p>
+            Suitable for German Shepherds aged 15 months old and over, ROYAL CANIN® German Shepherd Adult is specially formulated with all the nutritional needs of your adult dog in mind.
+            ROYAL CANIN® German Shepherd Adult contributes to supporting optimal digestive health. 
+            This is thanks to the inclusion of highly digestible L.I.P. proteins and a selection of specific fibres that limit intestinal fermentation and simultaneously help to maintain a good balance of intestinal flora.
+            ROYAL CANIN® German Shepherd Adult helps to support the skin's barrier role with a specific complex.
+            It also contains the omega-3 fatty acids EPA & DHA.
+            These nutrients help to nourish and support your dog's healthy skin and coat.
+            The German Shepherd is known for its lively temperament and high level of activity participation. 
+            This means a diet containing nutrients that support joint health can help maintain this breed's high activity levels.
+            This is the reason that ROYAL CANIN® German Shepherd Adult is enriched with specific nutrients to help support healthy bones and joints. 
+            What's more, this formula also contributes to the maintenance of a healthy weight.
+           </p>
+             
+      </article>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="review-wrapper">
+        <h2 class="title-lg mb--20"> REVIEW FOR customers</h2>
+        {% for f in fee %}
+        <div class="review-comment mb--20">
+          
+          <div class="avatar">
+            <img src="image/icon-logo/author-logo.png" alt="">
+          </div>
+          
+          <div class="text">
+            <div class="rating-widget mb--15">
+              {% if f.rate == 1 %}
+              <span class="single-rating"><i class="fas fa-star"></i></span>
+              {% elif f.rate == 2%}
+              <span class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+              {% elif f.rate == 3%}
+              <span class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+              {% elif f.rate == 4%}
+              <span class="single-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+              {% elif f.rate == 5%}
+              <span class="single-rating"><i class="far fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+              {% endif %}
+            </div>
+            <h6 class="author">{{f.users_id.users_email}} <span class="font-weight-400">{{f.suggestion_date}}</span> </h6>
+            <p>{{f.suggestion}}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% if 'customer_id' in request.session %}
+        {% for y in p  %}
+        <form action="/client/feedback/{{y.products_id}}/" method="POST" >
+          {% csrf_token %}
+        <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
+        <div class="rating-row pt-2">
+          <p class="d-block">Your Rating</p>
+          <span class="rating-widget-block">
+            <input type="radio" name="rate" id="star1" value="1">
+            <label for="star1"></label>
+            <input type="radio" name="rate" id="star2" value="2">
+            <label for="star2"></label>
+            <input type="radio" name="rate" id="star3" value="3"> 
+            <label for="star3"></label>
+            <input type="radio" name="rate" id="star4" value="4">
+            <label for="star4"></label>
+            <input type="radio" name="rate" id="star5" value="5" >
+            <label for="star5"></label>
+          </span>
+          
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="message">Comment</label>
+                  <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="col-lg-4">   
+              </div>
+              <div class="col-lg-4">
+              </div>
+              <div class="col-lg-4">                
+              </div>
+              <div class="col-lg-4">
+                <div class="submit-btn">
+                  <input type="submit" value="Post" class="btn btn-black"></input>
+                </div>
+              </div>
+            </div>
+          
+          {% endfor %}
+        </div>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+  <section>
+    <!-- Slider bLock 4 -->
+    <div class="pt--60">
+      
+    
+    </div>
+    <div class="pt--60">
+      <div class="container">
+    
+        <div class="block-title">
+          <h2>RELATED PRODUCTS</h2>
+        </div>
+        <div class="petmark-slick-slider border normal-slider" data-slick-setting='{
+                            "autoplay": true,
+                            "autoplaySpeed": 3000,
+                            "slidesToShow": 5,
+                            "arrows": true
+                        }'
+                data-slick-responsive='[
+                            {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                            {"breakpoint":480, "settings": {"slidesToShow": 1,"rows" :1} }
+                        ]'>
+    
+
+
+               {% for l in newp %}         
+          <div class="single-slide">
+            <div class="pm-product">
+              <div class="image">
+                <a href="/client/product-details/{{d.products_id}}/"><img src="{%  static '/image/'%}{{l.products_image}}" alt=""></a>
+                
+              </div>
+              <div class="content">
+                <h3>{{l.products_name}}</h3>
+                <div class="price text-red">
+                  
+                  <span>${{l.products_price}}</span>
+                </div>
+                <div class="btn-block">
+                  <a href="/client/insert_cart/{{l.products_id}}/" class="btn btn-outlined btn-rounded">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+                {% endfor %}
+        </div>
+      </div>
+    
+    </div>
+  </section>
+</main>
+  
+  
+{% endblock %}  

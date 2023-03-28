@@ -1,0 +1,70 @@
+{% extends 'header-footer.html' %}
+{% load static %}
+{% block content %}
+
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+								<div class="section-header-breadcrumb-content">
+									<h1>city Forms</h1>
+                  <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#"><i class="fas fa-home"></i></a></div>
+                    <div class="breadcrumb-item"><a href="#"> City </a></div>
+                    <div class="breadcrumb-item"><a href="#"> Forms</a></div>
+                  </div>
+								</div>
+							</div>
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+								
+							</div>
+						</div>
+					</div>
+          <div class="section-body">
+            <form name="froms"  method="POST"  data-parsley-validate="">
+              {% csrf_token %}
+            <div class="row">
+                
+              <div class="col-12 col-md-10 col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Insert City </h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label> City Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-list-alt"></i>
+                          </div>
+                        </div>
+                        <input type="text" name="citys_name" class="form-control phone-number" data-parsley-required="true" data-parsley-required-message="This field is required">
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label> Select State </label>
+                      <select name = "states_id" class="form-control selectric">
+                        {% for j in state %}
+                        <option value="{{j.states_id}}">{{j.states_name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    
+
+                  </div>
+                  <button class="btn btn-primary">Insert</button>
+                </div>
+                
+                
+
+              
+            </div>
+          </form>
+          </div>
+        </section>
+        {% endblock %}

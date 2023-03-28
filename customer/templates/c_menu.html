@@ -1,0 +1,19 @@
+{% load static %}
+
+{% for o in c %}
+    <li>  
+      <a href="/client/select_category/{{o.categorys_id}}/">{{o.categorys_name}}</a>
+      <ul>
+        {% for j in su %}
+
+        {% if j.categorys_id.categorys_id == o.categorys_id %}
+        <li value="{{j.sub_categorys_id}}" >
+          <div>
+          <a href="/client/select_sub_category/{{j.sub_categorys_id}}/">{{j.sub_categorys_name}}</a>
+        </div>
+        </li>
+        {% endif %}
+         {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}

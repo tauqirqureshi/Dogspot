@@ -1,0 +1,59 @@
+
+{% extends 'c-header-footer.html' %}
+{% load static %}
+{% block conten %}
+
+<nav aria-label="breadcrumb" class="breadcrumb-wrapper">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page">Your Order </li>
+            <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+        </ol>
+    </div>
+</nav>
+
+        <!-- Cart Page Start -->
+        <div class="cart_area sp-inner-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="https://demo.hasthemes.com/petmark-v5/petmark/">				
+                            <!-- Cart Table -->
+                            <div class="cart-table table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Image</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            <th class="pro-quantity">Quantity</th>
+                                            <th class="pro-subtotal">Total</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for i in order %}
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img src="{%  static '/image/'%}{{i.products_id.products_image}}" alt="Product"></a></td>
+                                            <td class="pro-title"><a href="#">{{ i.products_id.products_name }}</a></td>
+                                            <td class="pro-price"><span>{{i.order_amount}}</span></td>
+                                            <td class="pro-subtotal"><span>{{i.order_quantity}}</span></td>
+                                            <td class="pro-price"><span>{{i.oreder_total}}</span></td>
+                                            
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </form>	
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Page End --> 
+
+  
+        {% endblock %}  

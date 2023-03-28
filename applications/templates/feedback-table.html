@@ -1,0 +1,99 @@
+{% extends 'header-footer.html' %}
+{% load static %}
+{% block content %}
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+						<div class="row">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+								<div class="section-header-breadcrumb-content">
+									<h1>Feedback Table</h1>
+                  <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#"><i class="fas fa-home"></i></a></div>
+                    <div class="breadcrumb-item"><a href="#">Table</a></div>
+                    <div class="breadcrumb-item"><a href="#">Feedback Table</a></div>
+                  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Feedback Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Comment Date</th>
+                            <th>Comment</th>
+                            <th>Users Id</th>
+                            <th>Product Id</th>
+                            <th> Rate </th>
+                            <th> Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for i in feedback %}
+                          <tr>
+                            <td>{{ i.feedbacks_id}}</td>
+                            <td>{{i.suggestion_date}}</td>
+                            <td>{{i.suggestion}}</td>
+                            <td>{{i.users_id.users_email}}</td>
+                            <td>{{i.products_id.products_name}}</td>
+                            <td>
+                              {% if i.rate == 1 %}
+                            <div class="col-blue">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            {% elif i.rate == 2 %}
+                            <div class="col-blue">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            {% elif i.rate == 3 %}
+                            <div class="col-blue">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            {% elif i.rate == 4 %}
+                            <div class="col-blue">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            {% else  %}
+                            <div class="col-blue">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+
+                            {% endif %}
+
+                          </td>
+                            <td>
+                              <a href="/delete-feedback/{{i.feedbacks_id}}"><img src="{% static 'assets/img/delete.jpg' %}" width="25"> </a>
+                           </td>
+                        </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {% endblock %}

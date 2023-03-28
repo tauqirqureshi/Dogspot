@@ -1,0 +1,24 @@
+{% load static %}
+
+{% for i in order %}
+                          <tr>
+                            <td>{{i.orders_id}}</td>
+                            <td>{{i.orders_date}}</td>
+                            <td>{{i.total_amount}}</td>
+                            <td>{{i.users_id.users_email}}</td>
+                            <td> 
+                                {% if i.payments_status == 0 %}
+                               <label style="background-color: #ff7b7b; color: black;" > Cash </label>
+                                {% elif i.payments_status == 1 %}
+                                <label style="background-color: greenyellow;; color: black;" > online payment </label>
+                                {% endif %}
+                            </td>
+                            <td> <a href="/order-item-table/{{i.orders_id}}/"> view-Order Details</a> </td>
+                           
+
+                           </td>
+                            <td>
+                              <a href="/delete-order/{{i.orders_id}}"><img src="{% static 'assets/img/delete.jpg' %}" width="25"> </a>
+                           </td>
+                          </tr>
+                          {% endfor %}
